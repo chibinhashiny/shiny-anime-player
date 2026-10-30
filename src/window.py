@@ -1,10 +1,14 @@
 import os
 import random
 import sys
-from contextlib import nullcontext
 is_on_library = True
 is_on_configs = True
 from PySide6 import QtCore, QtWidgets, QtGui
+from PySide6.QtGui import QColor
+from PySide6.QtWidgets import (QApplication,
+                               QTableWidget,
+                               QTableWidgetItem)
+from anime_list import anime_list
 
 class MainWidget(QtWidgets.QWidget):
     def __init__(self):
@@ -18,8 +22,14 @@ class MainWidget(QtWidgets.QWidget):
         self.exit_btn = QtWidgets.QPushButton("Sair")
         self.configs_btn = QtWidgets.QPushButton("Configurações")
         self.library_btn = QtWidgets.QPushButton("Biblioteca")
+        self.anime_widget_list = QtWidgets.QListWidget()
 
         self.layout = QtWidgets.QVBoxLayout(self)
+
+        self.layout.addWidget(self.anime_widget_list,
+                              alignment=QtCore.Qt.AlignRight)
+        self.layout.addStretch()
+        self.anime_widget_list.hide()
 
         self.layout.addWidget(self.exit_btn,
                               alignment=QtCore.Qt.AlignLeft)
@@ -38,6 +48,12 @@ class MainWidget(QtWidgets.QWidget):
 
         self.configs_btn.clicked.connect(self.config_toggle)
 
+
+
+    def library_shi(self):
+        self.anime_widget_list.clear()
+        for i in anime_list.keys():
+            self.anime_widget_list.addItem(i)
 
 
     @QtCore.Slot()
@@ -59,10 +75,13 @@ class MainWidget(QtWidgets.QWidget):
     @QtCore.Slot()
     def library_toggle(self):
         if self.is_on_library:
+            self.library_shi()
+            self.anime_widget_list.show()
             self.is_on_library = not self.is_on_library
             self.configs_btn.hide()
         else:
             self.is_on_library = not self.is_on_library
+            self.anime_widget_list.hide()
             self.configs_btn.show()
         print(self.is_on_library)
 
