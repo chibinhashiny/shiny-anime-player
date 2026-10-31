@@ -52,7 +52,7 @@ class MainWidget(QtWidgets.QWidget):
 
     def library_shi(self):
         self.anime_widget_list.clear()
-        for i in anime_list.keys():
+        for i in anime_list:
             self.anime_widget_list.addItem(i)
 
 
