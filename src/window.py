@@ -74,7 +74,7 @@ class MainWidget(QtWidgets.QWidget):
         if item is not None:
             self.episodes_list.clear()
             if item.text() in anime_array:
-              episodes = anime_list.scan_shi(option=self.selected_anime)
+              episodes = anime_list.scan_shi(self.selected_anime)
         for i in episodes:
             self.episodes_list.addItem(i)
             print(episodes)
