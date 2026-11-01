@@ -71,20 +71,16 @@ class MainWidget(QtWidgets.QWidget):
     def library_list_stuff(self):
         item = self.anime_widget_list.currentItem()
         self.selected_anime = item.text()
-        if item is not None:
-            self.episodes_list.clear()
-            if item.text() in anime_array:
-              episodes = anime_list.scan_shi(self.selected_anime)
+        self.episodes_list.clear()
+        episodes = anime_list.scan_shi(self.selected_anime)
         for i in episodes:
             self.episodes_list.addItem(i)
-            print(episodes)
         self.episodes_list.show()
 
     @QtCore.Slot()
     def play_episodes(self):
         selected_episode = self.episodes_list.currentItem()
-        if selected_episode is not None:
-            anime_list.open_video_file(selected_episode.text(), self.selected_anime)
+        anime_list.open_video_file(selected_episode.text(), self.selected_anime)
 
 
     @QtCore.Slot()
